@@ -1,6 +1,6 @@
 import React from 'react';
 import {App} from './App';
-import {configure, mount, shallow} from 'enzyme';
+import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({adapter: new Adapter()});
@@ -24,11 +24,10 @@ describe('input field', () => {
 });
 */
 
-it('dsf', () => {
-  const state = {mirror: ''};
-  const wrapper = shallow(<App {...state} />);
-  wrapper
-    .find('textarea')
-    .simulate('change', {target: {value: 'Your new Value'}});
-  expect(wrapper.state('mirror')).toBe('Your new Value');
+// https://scriptverse.academy/tutorials/jasmine-spy-matchers.html
+it('test', () => {
+  const onChange = jest.fn();
+  const wrapper = shallow(<App onChange={onChange} />);
+  wrapper.find('textarea').simulate('change', 'test');
+  expect(onChange.mock.calls[0][0]).toBe('test');
 });
